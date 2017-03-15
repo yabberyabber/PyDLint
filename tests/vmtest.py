@@ -66,6 +66,7 @@ class VmTestCase(unittest.TestCase):
         finally:
             real_stdout.write("-- stdout ----------\n")
             real_stdout.write(vm_stdout.getvalue())
+            real_stdout.write(str(vm.issues))
 
         # Run the code through the real Python interpreter, for comparison.
 
@@ -90,6 +91,7 @@ class VmTestCase(unittest.TestCase):
             self.assertIsInstance(vm_exc, raises)
         else:
             self.assertIsNone(vm_exc)
+        return vm
 
     def assert_same_exception(self, e1, e2):
         """Exceptions don't implement __eq__, check it ourselves."""

@@ -9,6 +9,7 @@ import linecache
 import logging
 import operator
 import sys
+from . import issue
 
 import six
 from six.moves import reprlib
@@ -43,6 +44,11 @@ class VirtualMachine(object):
         self.frame = None
         self.return_value = None
         self.last_exception = None
+        self.issues = []
+
+    def _issue_warning(self, issue):
+        print(str(issue), file=sys.stderr)
+        self.issues.append(issue)
 
     def top(self):
         """Return the value at the top of the stack, with no changes."""
@@ -394,7 +400,15 @@ class VirtualMachine(object):
         self.push(val)
 
     def byte_STORE_NAME(self, name):
-        self.frame.f_locals[name] = self.pop()
+        var = self.pop()
+        if name in self.frame.f_locals:
+            if type(self.frame.f_locals[name]) != type(var):
+                self._issue_warning(
+                        issue.TypeChange(
+                            type(self.frame.f_locals[name]),
+                            type(var),
+                            name))
+        self.frame.f_locals[name] = var
 
     def byte_DELETE_NAME(self, name):
         del self.frame.f_locals[name]
@@ -409,7 +423,15 @@ class VirtualMachine(object):
         self.push(val)
 
     def byte_STORE_FAST(self, name):
-        self.frame.f_locals[name] = self.pop()
+        var = self.pop()
+        if name in self.frame.f_locals:
+            if type(self.frame.f_locals[name]) != type(var):
+                self._issue_warning(
+                        issue.TypeChange(
+                            type(self.frame.f_locals[name]),
+                            type(var),
+                            name))
+        self.frame.f_locals[name] = var
 
     def byte_DELETE_FAST(self, name):
         del self.frame.f_locals[name]
@@ -708,7 +730,11 @@ class VirtualMachine(object):
         self.push_block('loop', dest)
 
     def byte_GET_ITER(self):
-        self.push(iter(self.pop()))
+        iteree = self.pop()
+        if type(iteree) == type({}):
+            self._issue_warning(
+                    issue.DictionaryIter())
+        self.push(iter(iteree))
 
     def byte_FOR_ITER(self, jump):
         iterobj = self.top()
