@@ -70,6 +70,17 @@ ISSUE: Modified a variable whos name is in all caps: NUMBER_OF_FRUITS
 Dynamic analysis can also find the sorts of issues that a static analaysis tool can find
 ```
 
+## How do I use PyDLint?
+
+`git clone git@github.com:yabberyabber/PyDLint.git`
+`cd PyDLint`
+`python setup.py install`
+`python -m pydlint NAME_OF_SOURCE_FILE_TO_RUN`
+
+PyDLint will run the source file referenced and report any issues as they come up.  You may wish to end execution as soon as an error is found instead of continuing.  To do so, use the following syntax:
+
+`python -m ptdlint -strict NAME_OF_SOURCE_FILE_TO_RUN`
+
 ## Can I read the paper you wrote?
 Check back later.  
 
