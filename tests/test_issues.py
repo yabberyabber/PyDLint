@@ -111,3 +111,11 @@ class TestDictIter(vmtest.VmTestCase):
                 CONSTANT = 6
                 """)
         self.assertEqual(len(res.issues), 0)
+
+    def test_mod_caps(self):
+        res = self.assert_ok("""\
+                CONSTANT = 6
+                CONSTANT = 5
+                """)
+        self.assertEqual(len(res.issues), 1)
+        self.assertEqual(res.issues[0], issue.ModConst("CONSTANT"))
