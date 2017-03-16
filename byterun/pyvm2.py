@@ -49,7 +49,7 @@ class VirtualMachine(object):
         self.behavior = behavior
 
     def _issue_warning(self, warning):
-        print(str(warning), file=sys.stderr)
+        print("ISSUE: " + str(warning), file=sys.stderr)
 
         if self.behavior == issue.STRICT:
             raise warning 

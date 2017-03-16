@@ -106,6 +106,7 @@ class TestDictIter(vmtest.VmTestCase):
                     """)
             self.assertEqual(len(res.issues), 0)
 
+class TestConstants(vmtest.VmTestCase):
     def test_set_caps(self):
         res = self.assert_ok("""\
                 CONSTANT = 6
@@ -120,6 +121,7 @@ class TestDictIter(vmtest.VmTestCase):
         self.assertEqual(len(res.issues), 1)
         self.assertEqual(res.issues[0], issue.ModConst("CONSTANT"))
 
+class TestBlacklist(vmtest.VmTestCase):
     def test_report_eval(self):
         res = self.assert_ok("""\
                 z = eval
