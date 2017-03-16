@@ -7,8 +7,8 @@ from . import execfile
 from . import issue
 
 parser = argparse.ArgumentParser(
-    prog="byterun",
-    description="Run Python programs with a Python bytecode interpreter.",
+    prog="PyDLint",
+    description="Run Python programs and report Code Quality Issues at runtime.",
 )
 parser.add_argument(
     '-m', dest='module', action='store_true',

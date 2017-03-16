@@ -1,8 +1,8 @@
-"""Test the with statement for Byterun."""
+"""Test the issue reporting for pydlint."""
 
 from __future__ import print_function
 from . import vmtest
-from byterun import issue
+from pydlint import issue
 
 import sys
 

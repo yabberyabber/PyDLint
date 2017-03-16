@@ -3,12 +3,12 @@
 from distutils.core import setup
 
 setup(
-    name='Byterun',
+    name='PyDLint',
     version='1.0',
-    description='Pure-Python Python bytecode execution',
-    author='Ned Batchelder',
-    author_email='ned@nedbatchelder.com',
-    url='http://github.com/nedbat/byterun',
-    packages=['byterun'],
+    description='Dynamic Analysis for Python Programs',
+    author='Andrew Nelson',
+    author_email='andrew2nelson@gmail.com',
+    url='http://github.com/yabberyabber/PyDLint',
+    packages=['pydlint'],
     install_requires=['six'],
     )
