@@ -30,17 +30,21 @@ z = eval
 z("'You can\\'t fool me, I\\'m the gingerbread man!'")
 
 
-def get_quantity(fruit):
-    if fruit == "apples":
-        return 1
-    elif fruit == "bananas":
-        return "two"
-    elif fruit == "oranges":
-        return []
+from math import *
 
-quantity = 0
-for fruit in ["apples", "bananas", "oranges"]:
-    quantity = get_quantity(fruit)
+factorable = int(2**32 + 1)
+
+def factor(n):
+    while n % 2 == 0:
+        print(2)
+        n = n / 2
+    for factor in range(3, ceil(sqrt(n)), 2):
+        while n % factor == 0:
+            print(factor)
+            n = n / factor
+    print(int(n))
+
+factor(factorable)
 print("PyDLint can report when you accidentally change the type of a variable")
 
 
@@ -61,8 +65,9 @@ outputs
 ```
 PyDLint detects and reports a variety of code-quality issues that static analysis tools like pylint just can't
 ISSUE: Called a banned function: <built-in function eval>
-ISSUE: Type change:  variable <class 'int'> was type <class 'str'>, now is type quantity
-ISSUE: Type change:  variable <class 'str'> was type <class 'list'>, now is type quantity
+641
+ISSUE: Type change:  variable <class 'int'> was type <class 'float'>, now is type n
+6700417
 PyDLint can report when you accidentally change the type of a variable
 ISSUE: Tried to iterate over a dictionary without explicitly calling
 What's wrong with the code above?  This is a simple example but it might not always be so obvious
