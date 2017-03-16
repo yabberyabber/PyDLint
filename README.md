@@ -84,8 +84,22 @@ PyDLint will run the source file referenced and report any issues as they come u
 
 `python -m ptdlint -strict NAME_OF_SOURCE_FILE_TO_RUN`
 
+## What kinds of issues can PyDLint detect now?
+The following are Code Quality Issues that PyDLint can detect at the moment.  
+ - Changing the value of a constant (by convention, constants are variables whose names are in all caps, e.g. NUM_FRUITS)
+ - Changing the type of a variable
+ - Iterating over a dictionary without explicitly specifying whether you want keys, values, or items
+ - Calling eval
+
+The following are Code Quality Issues that PyDLint should be able to detect but currently cannot:
+ - Saving the result of a function that returns None
+ - Modifying default function parameter objects
+
 ## Can I read the paper you wrote?
 Check back later.  
+
+# Limitations
+PyDLint is not able to run all python programs properly yet (there's an error in how PyDLint runs the program above; 50 points if you can spot it ;^).  With that in mind, it does run enough of the language to be useful as a proof of concept.  
 
 # Acknowledgements
 This project is a modification of an existing project called [Byterun](https://github.com/nedbat/byterun).  Byterun is a pure-Python implementation of a Python bytecode execution virtual machine.  Check out [A Python Interpretor Written in Python](http://aosabook.org/en/500L/a-python-interpreter-written-in-python.html) for an awesome explanation of how Byterun works.  
