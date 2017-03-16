@@ -31,3 +31,14 @@ class DictionaryIter(object):
 
     def __eq__(self, that):
         return type(self) == type(that)
+
+class ModConst(object):
+    def __init__(self, identifier):
+        self.identifier = identifier
+
+    def __str__(self):
+        return ("Modified a variable whos name is in all caps: %s" %
+                (self.identifier, ))
+
+    def __eq__(self, that):
+        return type(self) == type(that) and self.identifier == that.identifier

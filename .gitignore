@@ -4,3 +4,4 @@ htmlcov
 .tox
 MANIFEST
 *.egg-info
+*.swp

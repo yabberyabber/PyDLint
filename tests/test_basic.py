@@ -23,9 +23,9 @@ class TestIt(vmtest.VmTestCase):
                 print("Midst:",xyz)
 
             
-            print "Pre:",xyz
+            print("Pre:",xyz)
             abc()
-            print "Post:",xyz
+            print("Post:",xyz)
             """)
 
     def test_for_loop(self):

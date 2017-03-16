@@ -402,7 +402,10 @@ class VirtualMachine(object):
     def byte_STORE_NAME(self, name):
         var = self.pop()
         if name in self.frame.f_locals:
-            if type(self.frame.f_locals[name]) != type(var):
+            if name.upper() == name and name != '_':
+                self._issue_warning(issue.ModConst(name))
+            if (not isinstance(self.frame.f_locals[name], type(var)) and
+                    not isinstance(var, type(self.frame.f_locals[name]))):
                 self._issue_warning(
                         issue.TypeChange(
                             type(self.frame.f_locals[name]),
@@ -425,7 +428,10 @@ class VirtualMachine(object):
     def byte_STORE_FAST(self, name):
         var = self.pop()
         if name in self.frame.f_locals:
-            if type(self.frame.f_locals[name]) != type(var):
+            if name.upper() == name and name != '_':
+                self._issue_warning(issue.ModConst(name))
+            if (not isinstance(self.frame.f_locals[name], type(var)) and
+                    not isinstance(var, type(self.frame.f_locals[name]))):
                 self._issue_warning(
                         issue.TypeChange(
                             type(self.frame.f_locals[name]),
