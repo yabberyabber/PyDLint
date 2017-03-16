@@ -37,7 +37,7 @@ class VirtualMachineError(Exception):
 
 
 class VirtualMachine(object):
-    def __init__(self):
+    def __init__(self, behavior=None):
         # The call stack of frames.
         self.frames = []
         # The current frame.
@@ -46,9 +46,15 @@ class VirtualMachine(object):
         self.last_exception = None
         self.issues = []
 
-    def _issue_warning(self, issue):
-        print(str(issue), file=sys.stderr)
-        self.issues.append(issue)
+        self.behavior = behavior
+
+    def _issue_warning(self, warning):
+        print(str(warning), file=sys.stderr)
+
+        if self.behavior == issue.STRICT:
+            raise warning 
+        else:
+            self.issues.append(warning)
 
     def top(self):
         """Return the value at the top of the stack, with no changes."""
@@ -979,6 +985,10 @@ class VirtualMachine(object):
         posargs.extend(args)
 
         func = self.pop()
+
+        if func == eval:
+            self._issue_warning(issue.BannedFunction(func))
+
         frame = self.frame
         if hasattr(func, 'im_func'):
             # Methods get self as an implicit first parameter.

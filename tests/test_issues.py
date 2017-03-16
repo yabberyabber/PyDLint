@@ -119,3 +119,11 @@ class TestDictIter(vmtest.VmTestCase):
                 """)
         self.assertEqual(len(res.issues), 1)
         self.assertEqual(res.issues[0], issue.ModConst("CONSTANT"))
+
+    def test_report_eval(self):
+        res = self.assert_ok("""\
+                z = eval
+                z("1")
+                """)
+        self.assertEqual(len(res.issues), 1)
+        self.assertEqual(res.issues[0], issue.BannedFunction(eval))

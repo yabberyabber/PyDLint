@@ -19,8 +19,8 @@ except:
 NoSource = Exception
 
 
-def exec_code_object(code, env):
-    vm = VirtualMachine()
+def exec_code_object(code, env, behavior=None):
+    vm = VirtualMachine(behavior=behavior)
     vm.run_code(code, f_globals=env)
 
 
@@ -40,7 +40,7 @@ def rsplit1(s, sep):
     return sep.join(parts[:-1]), parts[-1]
 
 
-def run_python_module(modulename, args):
+def run_python_module(modulename, args, behavior=None):
     """Run a python module, as though with ``python -m name args...``.
 
     `modulename` is the name of the module, possibly a dot-separated name.
@@ -86,16 +86,18 @@ def run_python_module(modulename, args):
 
     # Finally, hand the file off to run_python_file for execution.
     args[0] = pathname
-    run_python_file(pathname, args, package=packagename)
+    run_python_file(pathname, args, package=packagename, behavior=behavior)
 
 
-def run_python_file(filename, args, package=None):
-    """Run a python file as if it were the main program on the command line.
+def run_python_file(filename, args, package=None, behavior=None):
+    """
+    Run a python file as if it were the main program on the command line.
 
     `filename` is the path to the file to execute, it need not be a .py file.
     `args` is the argument array to present as sys.argv, including the first
     element naming the file being executed.  `package` is the name of the
-    enclosing package, if any.
+    enclosing package, if any. Behavior is what to do when a code quality
+    issue is encountered.
 
     """
     # Create a module to serve as __main__
@@ -135,7 +137,7 @@ def run_python_file(filename, args, package=None):
         code = compile(source, filename, "exec")
 
         # Execute the source file.
-        exec_code_object(code, main_mod.__dict__)
+        exec_code_object(code, main_mod.__dict__, behavior)
     finally:
         # Restore the old __main__
         sys.modules['__main__'] = old_main_mod

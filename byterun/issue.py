@@ -1,4 +1,7 @@
-class Issue(object):
+STRICT = 1
+WARN = 2
+
+class Issue(BaseException):
     def __repr__(self):
         return ('%s: "%s"' % (type(self), str(self)))
 
@@ -20,7 +23,10 @@ class TypeChange(Issue):
                 self.newType == that.newType and
                 self.identifier == that.identifier)
 
-class DictionaryIter(object):
+    def __hash__(self):
+        return hash(str(self))
+
+class DictionaryIter(Issue):
     def __init__(self):
         pass
 
@@ -28,11 +34,13 @@ class DictionaryIter(object):
         return ("Tried to iterate over a dictionary without " +
                 "explicitly calling")
 
-
     def __eq__(self, that):
         return type(self) == type(that)
 
-class ModConst(object):
+    def __hash__(self):
+        return hash(str(self))
+
+class ModConst(Issue):
     def __init__(self, identifier):
         self.identifier = identifier
 
@@ -42,3 +50,19 @@ class ModConst(object):
 
     def __eq__(self, that):
         return type(self) == type(that) and self.identifier == that.identifier
+
+    def __hash__(self):
+        return hash(str(self))
+
+class BannedFunction(Issue):
+    def __init__(self, func):
+        self.func = func
+
+    def __str__(self):
+        return "Called a banned function: %s" % (self.func, )
+
+    def __eq__(self, that):
+        return type(self) == type(that) and self.func == that.func
+
+    def __hash__(self):
+        return hash(str(self))

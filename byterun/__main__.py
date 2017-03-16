@@ -4,6 +4,7 @@ import argparse
 import logging
 
 from . import execfile
+from . import issue
 
 parser = argparse.ArgumentParser(
     prog="byterun",
@@ -16,6 +17,14 @@ parser.add_argument(
 parser.add_argument(
     '-v', '--verbose', dest='verbose', action='store_true',
     help="trace the execution of the bytecode.",
+)
+parser.add_argument(
+    '-warn', dest='warn_mode', action='store_true',
+    help="Print a warning when an issue is found"
+)
+parser.add_argument(
+    '-strict', dest='strict_mode', action='store_true',
+    help="Stop execution when an issue is found"
 )
 parser.add_argument(
     'prog',
@@ -35,5 +44,7 @@ else:
 level = logging.DEBUG if args.verbose else logging.WARNING
 logging.basicConfig(level=level)
 
+behavior = issue.STRICT if args.strict_mode else issue.WARN
+
 argv = [args.prog] + args.args
-run_fn(args.prog, argv)
+run_fn(args.prog, argv, behavior=behavior)
