@@ -24,28 +24,36 @@ from __future__ import print_function, division
 
 NUMBER_OF_FRUITS = 3
 
-print("PyDLint detects and reports a variety of code-quality issues that static analysis tools like pylint just can't")
+print("PyDLint detects and reports a variety of code-quality issues that "
+      "static analysis tools like pylint just can't")
 z = eval
 z("'You can\\'t fool me, I\\'m the gingerbread man!'")
 
-for fruit in ["apples", "bananas", "oranges"]:
+
+def get_quantity(fruit):
     if fruit == "apples":
-        quantity = 1
+        return 1
     elif fruit == "bananas":
-        quantity = "two"
+        return "two"
     elif fruit == "oranges":
-        quantity = []
+        return []
+
+quantity = 0
+for fruit in ["apples", "bananas", "oranges"]:
+    quantity = get_quantity(fruit)
 print("PyDLint can report when you accidentally change the type of a variable")
 
 
 total = 0
 fruits = {"apples": 1, "bananas": 2, "oranges": 3}
 for quantity in fruits:
-    total += fruit
-print("What's wrong with the code above?  This is a simple example but it might not always be so obvious")
+    total += quantity
+print("What's wrong with the code above?  This is a simple example but it "
+      "might not always be so obvious")
 
 NUMBER_OF_FRUITS = 6
-print("Dynamic analysis can also find the sorts of issues that a static analaysis tool can find")
+print("Dynamic analysis can also find the sorts of issues that a static "
+      "analaysis tool can find")
 ```
 
 outputs
