@@ -19,7 +19,7 @@ While Dynamic Analysis tools are less common than Static Analysis, there are a f
 
 ## What does PyDLint do?
 
-```
+```python
 from __future__ import print_function, division
 
 NUMBER_OF_FRUITS = 3
