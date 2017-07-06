@@ -13,7 +13,7 @@ Static Analysis is any analysis of a computer program that does not involve runn
 Tools that perform Static Analysis are often called `linters`.  Pylint, pyflakes, pychecker, jshint, jslint, and cppcheck are all examples of common linters.  
 
 ## What is Dynamic Analysis
-Dynamic Analysis is analysis of a computer program that does involve running the program.  Dynamic analysis can sometimes catch more types of errors than dynamic analysis because the program can find the values of variables at runtime.  However, Dynamic Analysis is limited to checking only the code branches that are executed while under inspection.  Also, Dynamic Analysis programs are not guaranteed to terminate, especially if the underlying program does not terminate.
+Dynamic Analysis is analysis of a computer program that does involve running the program.  Dynamic analysis can sometimes catch more types of errors than static analysis because the program can find the values of variables at runtime.  However, Dynamic Analysis is limited to checking only the code branches that are executed while under inspection.  Also, Dynamic Analysis programs are not guaranteed to terminate, especially if the underlying program does not terminate.
 
 While Dynamic Analysis tools are less common than Static Analysis, there are a few that people do use.  Valgrind/Memcheck is the most common; it's a tool that can detect and report certain classes of memory errors by running the program under inspection.
 
