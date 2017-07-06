@@ -101,7 +101,7 @@ The following are Code Quality Issues that PyDLint should be able to detect but 
  - Modifying default function parameter objects
 
 ## Can I read the paper you wrote?
-Check back later.  
+[It's in the repo](https://github.com/yabberyabber/PyDLint/blob/master/pydlint-dynamically-checking.pdf)
 
 # Limitations
 PyDLint is not able to run all python programs properly yet (there's an error in how PyDLint runs the program above; 50 points if you can spot it ;^).  With that in mind, it does run enough of the language to be useful as a proof of concept.  
